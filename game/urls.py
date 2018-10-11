@@ -20,4 +20,14 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^question_game/', include('question_game.urls')),
     url(r'^admin/', admin.site.urls),
+    
 ]
+
+
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+ 
+ 
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

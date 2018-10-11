@@ -2,21 +2,24 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Question
+from .models import Game, Question, Memorama
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    game_list = Game.objects.all()
     template = loader.get_template('question_game/index.html')
     context = {
-        'latest_question_list': latest_question_list,
+        'game_list': game_list,
     }
     return HttpResponse(template.render(context, request))
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'question_game/detail.html', {'question': question})
+def detail(request, game_id):
+    game = get_object_or_404(game, pk=game_id)
+    question_list = Question.objects.filter(game=game_id)
+    
+    return render(request, 'question_game/detail.html', {'game': game
+    	, 'question_list':  question_list})
 
 def results(request, question_id):
     response = "You're looking at the results of question %s."
@@ -24,3 +27,12 @@ def results(request, question_id):
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
+
+
+def memorama(request, memorama_id):
+    memorama = get_object_or_404(Memorama, pk=memorama_id)
+    question_list = memorama.question_set.all()
+    return render(request, 'question_game/memorama.html', {'question_list':question_list})
+
+
+
