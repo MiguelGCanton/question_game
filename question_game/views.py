@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Game, Question, Memorama
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
+from .forms import Team_form
 
 def index(request):
     game_list = Game.objects.all()
@@ -35,4 +36,6 @@ def memorama(request, memorama_id):
     return render(request, 'question_game/memorama.html', {'question_list':question_list})
 
 
-
+def answer_me(request):
+    form = Team_form()
+    return render(request, 'question_game/register_team.html', {'form': form} )

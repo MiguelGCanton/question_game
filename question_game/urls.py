@@ -12,5 +12,7 @@ urlpatterns = [
     # ex: /polls/5/vote/
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
     url(r'^(?P<memorama_id>[0-9]+)/memorama/$', views.memorama, name='memo'),
-
+    
+    #url(r'^ajax/get_response/$', views.answer_me, name='get_response'),
+    url(r'^register_team/$', views.answer_me, name='register_team'),
 ]
